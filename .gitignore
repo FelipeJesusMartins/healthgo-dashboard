@@ -1,42 +1,57 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
-
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
-
-# IDEs and editors
+# Arquivos de Sistema e IDE
+.DS_Store
+.vscode/
 .idea/
 .project
 .classpath
 .c9/
-*.launch
 .settings/
 *.sublime-workspace
-
-# Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-
-# System files
-.DS_Store
+.history/
 Thumbs.db
+*.log
+*.sqlite
+__pycache__/
+
+### Angular (Frontend)
+# Pasta de build e cache
+/dist
+/tmp
+/out-tsc
+/bazel-out
+/.angular/cache
+
+# Dependências
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Testes e relatórios
+/coverage
+testem.log
+libpeerconnection.log
+
+### Python (Backend)
+# Ambiente virtual
+.env
+.venv/
+venv/
+env/
+/dist
+/build
+/lib/
+/include/
+/bin/
+
+# Cache e arquivos de compilação
+*.pyc
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+### Docker
+# Ignora arquivos gerados localmente pelo Docker Compose
+.docker/
