@@ -17,8 +17,10 @@ Certifique-se de que você tem o Docker e o Docker Compose instalados em sua má
 
 1.  **Clone o repositório:**
 
+    ```bash
     git clone https://github.com/FelipeJesusMartins/healthgo-dashboard
     cd healthgo-dashboard
+    ```
 
 2.  **Suba a aplicação com Docker Compose:**
     Este comando irá construir as imagens do Docker para o frontend e o backend, e iniciar os dois contêineres.
