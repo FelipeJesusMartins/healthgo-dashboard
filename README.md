@@ -1,59 +1,69 @@
-# HealthgoDashboard
+# HealthGo
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+Teste técnico
 
-## Development server
+## 🚀 Como Rodar o Projeto
 
-To start a local development server, run:
+Este projeto utiliza **Docker** e **Docker Compose** para gerenciar o ambiente de desenvolvimento, garantindo que ele rode de forma consistente em qualquer máquina.
 
-```bash
-ng serve
+### Pré-requisitos
+
+Certifique-se de que você tem o Docker e o Docker Compose instalados em sua máquina.
+
+  * [**Instalar Docker**](https://docs.docker.com/get-docker/)
+  * [**Instalar Docker Compose**](https://docs.docker.com/compose/install/)
+
+### Passo a Passo
+
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone https://github.com/FelipeJesusMartins/healthgo-dashboard
+    cd healthgo-dashboard
+    ```
+
+2.  **Suba a aplicação com Docker Compose:**
+    Este comando irá construir as imagens do Docker para o frontend e o backend, e iniciar os dois contêineres.
+
+    ```bash
+    docker-compose up --build
+    ```
+
+    (Se encontrar problemas e precisar de uma reconstrução forçada, use `docker-compose up --build --force-recreate`).
+
+3.  **Acesse a aplicação:**
+
+      * **Frontend (Angular):** Abra seu navegador e acesse `http://localhost:4200`.
+      * **Backend (FastAPI):** A API estará disponível em `http://localhost:8000`.
+
+## 📁 Estrutura do Projeto
+
+A estrutura de pastas está organizada para separar o frontend do backend, com um arquivo `docker-compose.yml` na raiz para orquestração.
+
+```
+.
+├── backend/                  # Servidor Python/FastAPI
+│   ├── app.py
+│   ├── Dockerfile
+│   └── requirements.txt
+├── frontend/                 # Aplicação Angular
+│   ├── src/
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   └── package.json
+├── .gitignore
+├── docker-compose.yml
+└── README.md
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🛠️ Detalhes Técnicos
 
-## Code scaffolding
+  * **Frontend:** Uma aplicação Angular compilada e servida por um servidor web Nginx em um contêiner Docker. O Nginx está configurado para encaminhar requisições da rota `/api` para o backend.
+  * **Backend:** Uma API RESTful construída com FastAPI, rodando em um servidor Uvicorn dentro de um contêiner Python.
+  * **Orquestração:** O `docker-compose.yml` define os serviços, mapeia as portas (`4200:80` para o frontend e `8000:8000` para o backend) e gerencia a comunicação entre eles.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🪲 Solução de Problemas Comuns
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+  * **Aparece a página "Welcome to nginx\!"**: Isso significa que a configuração do Nginx não foi carregada. Tente rodar `docker-compose up --build --force-recreate` para garantir que o contêiner do frontend seja reconstruído com a configuração correta.
+  * **Erro `404 Not Found` ao fazer upload**: Verifique se a sua rota `/api/upload-csv/` está correta no `app.py` do backend. Lembre-se que o backend é case-sensitive.
+  * **`Property 'files' does not exist`**: Este erro de compilação do Angular indica que o código `dashboard.html` não está sincronizado com o `dashboard.ts`. Certifique-se de que a sua tag `<option>` no HTML itera sobre a propriedade `patients` e não sobre `files`.

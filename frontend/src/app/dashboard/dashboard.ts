@@ -7,8 +7,8 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 interface Patient {
-  filename: string; // agora o HTML e TS batem
-  name: string;
+  filename: string;
+  patient_name: string;
 }
 
 @Component({
@@ -21,7 +21,7 @@ interface Patient {
 export class DashboardComponent implements AfterViewInit {
   @ViewChild('vitalChart') chartRef!: ElementRef<HTMLCanvasElement>;
 
-  patients: Patient[] = [];
+  patients: Patient[] = []; // O tipo da lista está correto
   selectedPatient: string = '';
   patientName = '';
   displayedData: any[] = [];
@@ -49,13 +49,15 @@ export class DashboardComponent implements AfterViewInit {
 
   // ✅ Carregar lista de arquivos (pacientes)
   loadFiles() {
-    this.http.get<{ files: string[] }>('/api/files').subscribe(res => {
-      this.patients = res.files.map(f => ({ filename: f, name: f }));
-      if (this.patients.length && !this.selectedPatient) {
-        this.selectedPatient = this.patients[0].filename;
-        this.loadPatientData(this.selectedPatient);
-      }
-    });
+      // Mude o tipo de retorno para o objeto completo do backend
+      this.http.get<{ files: Patient[] }>('/api/files').subscribe(res => {
+        // Atribua a resposta diretamente à sua lista de pacientes
+        this.patients = res.files;
+        if (this.patients.length && !this.selectedPatient) {
+          this.selectedPatient = this.patients[0].filename;
+          this.loadPatientData(this.selectedPatient);
+        }
+      });
   }
 
   // ✅ Carregar dados do paciente selecionado

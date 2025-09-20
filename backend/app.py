@@ -17,7 +17,12 @@ async def upload_csv(file: UploadFile = File(...)):
 
 @app.get("/api/files")
 def list_files():
-    return {"files": list(storage.keys())}
+    # Retorna uma lista de objetos com o nome do arquivo e do paciente
+    file_info = []
+    for filename, df in storage.items():
+        patient_name = df.iloc[0].get("nome_paciente", "Nome Indisponível")
+        file_info.append({"filename": filename, "patient_name": patient_name})
+    return {"files": file_info}
 
 @app.get("/api/data/{filename}")
 def get_data(filename: str, format: str = "json"):
