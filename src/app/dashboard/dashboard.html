@@ -1,0 +1,65 @@
+<header class="topbar">
+  <div class="brand">HealthGo</div>
+  <div class="actions">
+    <label class="btn">
+      Upload CSV
+      <input type="file" accept=".csv" (change)="onFileSelect($event)" hidden>
+    </label>
+    <button class="btn" (click)="downloadCSV()">Download CSV</button>
+  </div>
+</header>
+
+@if(selectedPatient != ''){
+<main class="container">
+  <div class="top-row">
+    <div class="patient-select">
+      <select [(ngModel)]="selectedPatient" (ngModelChange)="applyPatient($event)">
+        <option *ngFor="let patient of patients" [value]="patient.id">
+          {{ patient.id }} - {{ patient.name }}
+        </option>
+      </select>
+    </div>
+    <h1 class="patient-name">{{ patientName || selectedPatient || '—' }}</h1>
+  </div>
+
+  <section class="card table-card">
+    <table class="vitals-table" *ngIf="displayedData?.length">
+      <thead>
+        <tr>
+          <th>Timestamp</th>
+          <th>Heart Rate (bpm)</th>
+          <th>SpO₂ (%)</th>
+          <th>Systolic (mmHg)</th>
+          <th>Diastolic (mmHg)</th>
+          <th>Temperature (°C)</th>
+          <th>Resp.</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of displayedData">
+          <td>{{ row.timestamp }}</td>
+          <td>{{ row.hr }}</td>
+          <td>{{ row.spo2 }}</td>
+          <td>{{ row.pressao_sys }}</td>
+          <td>{{ row.pressao_dia }}</td>
+          <td>{{ row.temp }}</td>
+          <td>{{ row.resp_freq | number:'1.0-0' }}</td>
+          <td [class.status-normal]="row.status === 'NORMAL'"
+            [class.status-alert]="row.status && row.status !== 'NORMAL'">
+            {{ row.status }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!displayedData?.length" class="empty">Faça upload do CSV para exibir dados.</div>
+  </section>
+
+  <section class="card chart-card">
+    <h2>Vital Signs Over Time</h2>
+    <div class="chart-area">
+      <canvas #vitalChart></canvas>
+    </div>
+  </section>
+</main>
+}

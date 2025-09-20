@@ -1,0 +1,135 @@
+:root {
+  --nav: #121212;
+  --accent: #4dd0e1;
+  --card-bg: #212121;
+  --muted: #b0b0b0;
+  --green: #4caf50;
+  --red: #f44336;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  background: var(--nav);
+  color: #e0e0e0;
+}
+
+.topbar {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  background: #1a2c5a;
+  color: #fff;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.container {
+  padding: 28px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.patient-select select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #424242;
+  background: #333333;
+  color: #e0e0e0;
+}
+
+.patient-name {
+  font-size: 28px;
+  margin: 0;
+  color: #e0e0e0;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+}
+
+.table-card {
+  /* Aplicamos o padding e as bordas arredondadas aqui */
+  padding: 0;
+  overflow-x: auto;
+}
+
+.vitals-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vitals-table thead th {
+  text-align: left;
+  padding: 14px 12px;
+  color: var(--muted);
+  border-bottom: 1px solid #424242;
+}
+
+.vitals-table tbody td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #333333;
+}
+
+.vitals-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.status-normal {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.status-alert {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.chart-card h2 {
+  margin: 0 0 12px 0;
+  color: #e0e0e0;
+}
+
+.chart-area {
+  height: 320px;
+}
+
+.empty {
+  padding: 18px;
+  color: var(--muted);
+}
